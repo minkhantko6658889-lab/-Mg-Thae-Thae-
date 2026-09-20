@@ -3,9 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>For Thae Thae ❤️</title>
 
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
       font-family: Arial, sans-serif;
@@ -16,32 +21,33 @@
     }
 
     .box {
-      padding: 50px 20px;
+      padding: 35px 15px;
     }
 
     h1 {
       font-size: 35px;
-      margin-bottom: 15px;
+      margin-bottom: 10px;
     }
 
     p {
-      font-size: 20px;
+      font-size: 19px;
       line-height: 1.7;
     }
 
     .heart {
-      font-size: 65px;
+      font-size: 60px;
       animation: beat 1s infinite;
     }
 
     button {
-      margin-top: 20px;
+      margin-top: 15px;
       padding: 14px 25px;
       border: none;
       border-radius: 30px;
       background: #2196f3;
       color: white;
       font-size: 18px;
+      cursor: pointer;
     }
 
     #message {
@@ -49,9 +55,57 @@
       margin-top: 25px;
     }
 
+    .slideshow {
+      width: 100%;
+      max-width: 380px;
+      height: 420px;
+      margin: 25px auto;
+      overflow: hidden;
+      border-radius: 20px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+      background: white;
+    }
+
+    .slideshow img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: none;
+    }
+
+    .slideshow img.active {
+      display: block;
+      animation: fade 1s;
+    }
+
+    .music {
+      width: 100%;
+      max-width: 380px;
+      height: 215px;
+      margin: 25px auto;
+      border-radius: 15px;
+      overflow: hidden;
+    }
+
+    .music iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
     @keyframes beat {
       50% {
         transform: scale(1.15);
+      }
+    }
+
+    @keyframes fade {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
       }
     }
   </style>
@@ -60,6 +114,7 @@
 <body>
 
   <div class="box">
+
     <div class="heart">❤️</div>
 
     <h1>For Thae Thae</h1>
@@ -74,22 +129,133 @@
     </button>
 
     <div id="message">
+
       <p>
         မင်းနဲ့တွေ့ခဲ့ရတာက<br>
         ကိုယ့်အတွက် အမှတ်တရအကောင်းဆုံးတွေထဲက တစ်ခုပါ။ ❤️
       </p>
 
+
+      <!-- PHOTO SLIDESHOW -->
+
+      <div class="slideshow">
+
+        <img src="4411ae4c94328a8e2b5d71850451d447_1.jpeg" class="active">
+
+        <img src="IMG-7e38fef495ba69863e4c0f23ef9d7117-V.jpg">
+
+        <img src="IMG-7f75efebec813f42d5ee0e3bb6825e6e-V.jpg">
+
+        <img src="IMG_20260111_182413.jpg">
+
+        <img src="IMG_20260111_183028.jpg">
+
+        <img src="IMG_20260111_183218_1769867691329edit.jpg">
+
+        <img src="IMG_20260111_183333.jpg">
+
+        <img src="IMG_20260322_191749.jpg">
+
+        <img src="IMG_20260322_192159.jpg">
+
+        <img src="IMG_20260322_192213.jpg">
+
+        <img src="IMG_20260415_190944_758.jpg">
+
+        <img src="IMG_20260417_110022.jpg">
+
+        <img src="IMG_20260417_110113.jpg">
+
+        <img src="IMG_20260417_110437.jpg">
+
+        <img src="IMG_20260417_111110.jpg">
+
+        <img src="IMG_20260518_161728.jpg">
+
+        <img src="IMG_20260518_162859.jpg">
+
+        <img src="IMG_20260518_163715.jpg">
+
+        <img src="MVIMG_20260131_205129_111654.jpg">
+
+        <img src="MVIMG_20260131_205242_105944.jpg">
+
+        <img src="MVIMG_20260131_210917_095240.jpg">
+
+        <img src="MVIMG_20260131_211017_094919.jpg">
+
+        <img src="a5a6012c6e6bb5d5f65ab0abd40fbf9f_5.jpeg">
+
+        <img src="c6f2ef5c38219afa5d0fbc54affe59a1_0.jpeg">
+
+        <img src="f432cb8eb1ce64dc0175822af5be1b62_6.jpeg">
+
+        <img src="myphoto.jpg">
+
+      </div>
+
+
+      <!-- YOUTUBE MUSIC -->
+
+      <div class="music">
+        <iframe
+          id="youtubeMusic"
+          src=""
+          allow="autoplay; encrypted-media"
+          allowfullscreen>
+        </iframe>
+      </div>
+
+
       <p>
         အမြဲတမ်း ပျော်ရွှင်နေပါစေ Thae Thae 💙
       </p>
+
+      <p>
+        မင်းက ကိုယ့်အတွက် အမြဲတမ်း အမှတ်တရလေးတစ်ခုပါ ❤️
+      </p>
+
     </div>
+
   </div>
 
+
   <script>
+
     function showMessage() {
+
       document.getElementById("message").style.display = "block";
+
+      document.getElementById("youtubeMusic").src =
+        "https://www.youtube.com/embed/GRC_iiZtAkA?autoplay=1&playsinline=1";
+
     }
+
+
+    let currentPhoto = 0;
+
+    const photos = document.querySelectorAll(".slideshow img");
+
+
+    setInterval(function() {
+
+      if (document.getElementById("message").style.display !== "none") {
+
+        photos[currentPhoto].classList.remove("active");
+
+        currentPhoto++;
+
+        if (currentPhoto >= photos.length) {
+          currentPhoto = 0;
+        }
+
+        photos[currentPhoto].classList.add("active");
+
+      }
+
+    }, 3000);
+
   </script>
 
 </body>
-</html>
+<html>
