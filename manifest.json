@@ -1,0 +1,9 @@
+{
+  "name": "For Thae Thae 💙",
+  "short_name": "Thae Thae 💙",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#0b5ed7",
+  "theme_color": "#0b5ed7",
+  "orientation": "portrait"
+}
