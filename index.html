@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>For Thae Thae ❤️</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #dbeeff, #ffffff);
+      color: #174a7e;
+      text-align: center;
+      min-height: 100vh;
+    }
+
+    .box {
+      padding: 50px 20px;
+    }
+
+    h1 {
+      font-size: 35px;
+      margin-bottom: 15px;
+    }
+
+    p {
+      font-size: 20px;
+      line-height: 1.7;
+    }
+
+    .heart {
+      font-size: 65px;
+      animation: beat 1s infinite;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 14px 25px;
+      border: none;
+      border-radius: 30px;
+      background: #2196f3;
+      color: white;
+      font-size: 18px;
+    }
+
+    #message {
+      display: none;
+      margin-top: 25px;
+    }
+
+    @keyframes beat {
+      50% {
+        transform: scale(1.15);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="box">
+    <div class="heart">❤️</div>
+
+    <h1>For Thae Thae</h1>
+
+    <p>
+      မင်းအတွက် အထူးတလည်လုပ်ထားတဲ့<br>
+      လက်ဆောင်လေးပါ 💙
+    </p>
+
+    <button onclick="showMessage()">
+      ဖွင့်ကြည့်မယ် 💌
+    </button>
+
+    <div id="message">
+      <p>
+        မင်းနဲ့တွေ့ခဲ့ရတာက<br>
+        ကိုယ့်အတွက် အမှတ်တရအကောင်းဆုံးတွေထဲက တစ်ခုပါ။ ❤️
+      </p>
+
+      <p>
+        အမြဲတမ်း ပျော်ရွှင်နေပါစေ Thae Thae 💙
+      </p>
+    </div>
+  </div>
+
+  <script>
+    function showMessage() {
+      document.getElementById("message").style.display = "block";
+    }
+  </script>
+
+</body>
+</html>
