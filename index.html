@@ -1,560 +1,413 @@
-        <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="my">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>For Thae Thae ❤️</title>
+<title>For Thae Thae 💙</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
-    }
+<style>
+* {
+  box-sizing: border-box;
+}
 
-    body {
-      margin: 0;
-      min-height: 100vh;
-      font-family: Arial, sans-serif;
-      text-align: center;
-      color: #174a7e;
-      background: linear-gradient(135deg, #d9efff, #ffffff);
-    }
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #0b5ed7, #6ec6ff);
+  color: white;
+  text-align: center;
+  overflow-x: hidden;
+}
 
-    .container {
-      padding: 30px 15px;
-    }
+.container {
+  width: 100%;
+  max-width: 500px;
+  margin: auto;
+  padding: 25px 15px 50px;
+}
 
-    .heart {
-      font-size: 58px;
-      animation: beat 1s infinite;
-    }
+h1 {
+  margin-top: 20px;
+  font-size: 30px;
+}
 
-    h1 {
-      font-size: 34px;
-      margin: 10px 0;
-    }
+.intro {
+  font-size: 17px;
+  line-height: 1.8;
+  margin: 15px 0 25px;
+}
 
-    .intro {
-      font-size: 18px;
-      line-height: 1.8;
-    }
+button {
+  border: none;
+  border-radius: 30px;
+  padding: 14px 28px;
+  font-size: 17px;
+  background: white;
+  color: #1261c9;
+  cursor: pointer;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
 
-    .open-btn {
-      border: none;
-      border-radius: 30px;
-      padding: 14px 28px;
-      margin-top: 15px;
-      background: #2196f3;
-      color: white;
-      font-size: 18px;
-      cursor: pointer;
-    }
+button:active {
+  transform: scale(0.96);
+}
 
-    #message {
-      display: none;
-      margin-top: 25px;
-    }
+#memory {
+  display: none;
+}
 
-    .top-text {
-      max-width: 390px;
-      margin: 0 auto 20px;
-      font-size: 18px;
-      line-height: 1.9;
-    }
+.photo-box {
+  position: relative;
+  width: 100%;
+  max-width: 380px;
+  height: 480px;
+  margin: 25px auto 15px;
+  overflow: hidden;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.15);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+}
 
-    /* ပုံ + စာသား */
-    .photo-box {
-      position: relative;
-      width: 100%;
-      max-width: 380px;
-      height: 480px;
-      margin: 20px auto;
-      overflow: hidden;
-      border-radius: 22px;
-      background: #fff;
-      box-shadow: 0 6px 25px rgba(0,0,0,.2);
-    }
+.photo {
+  display: none;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  animation: fade 1.2s ease;
+}
 
-    .photo {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: none;
-    }
+.photo.active {
+  display: block;
+}
 
-    .photo.active {
-      display: block;
-      animation: fade 1s;
-    }
+@keyframes fade {
+  from {
+    opacity: 0;
+    transform: scale(1.03);
+  }
 
-    /* ပုံပေါ်က စာသား */
-    .caption {
-      position: absolute;
-      left: 50%;
-      bottom: 25px;
-      transform: translateX(-50%);
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
 
-      width: 90%;
-      padding: 12px 14px;
+.caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 25px 15px 18px;
+  background: linear-gradient(transparent, rgba(0,0,0,0.8));
+  font-size: 17px;
+  line-height: 1.7;
+}
 
-      color: white;
-      background: rgba(0,0,0,.52);
-      border-radius: 15px;
+.top-text {
+  font-size: 16px;
+  line-height: 1.8;
+  margin: 20px 5px;
+}
 
-      font-size: 17px;
-      line-height: 1.6;
-    }
+.end-text {
+  display: none;
+  font-size: 17px;
+  line-height: 2;
+  margin-top: 25px;
+}
 
-    /* သီချင်း button */
-    .music-btn {
-      position: absolute;
-      right: 15px;
-      top: 15px;
+.music-btn {
+  position: fixed;
+  top: 15px;
+  right: 15px;
+  z-index: 10;
+  width: 45px;
+  height: 45px;
+  padding: 0;
+  border-radius: 50%;
+  font-size: 20px;
+}
 
-      width: 52px;
-      height: 52px;
-
-      border: none;
-      border-radius: 50%;
-
-      background: rgba(33,150,243,.9);
-      color: white;
-
-      font-size: 23px;
-      z-index: 10;
-    }
-
-    /* YouTube player ကို မမြင်ရအောင်ထားမယ် */
-    #player {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      left: -5px;
-      bottom: -5px;
-      opacity: 0.01;
-      pointer-events: none;
-    }
-
-    .ending {
-      max-width: 390px;
-      margin: 25px auto;
-      font-size: 18px;
-      line-height: 1.9;
-    }
-
-    @keyframes beat {
-      50% {
-        transform: scale(1.15);
-      }
-    }
-
-    @keyframes fade {
-      from {
-        opacity: 0;
-      }
-
-      to {
-        opacity: 1;
-      }
-    }
-  </style>
+#player {
+  position: fixed;
+  width: 1px;
+  height: 1px;
+  left: -10px;
+  top: -10px;
+  opacity: 0;
+  pointer-events: none;
+}
+</style>
 </head>
-
 
 <body>
 
-  <div class="container">
+<div class="container">
 
-    <div class="heart">❤️</div>
+  <h1>💙 For Thae Thae 💙</h1>
 
-    <h1>For Thae Thae</h1>
+  <div class="intro">
+    မင်းအတွက် သီးသန့်ဖန်တီးထားတဲ့<br>
+    အမှတ်တရလေးတစ်ခုပါ… 💙
+  </div>
 
-    <p class="intro">
-      မင်းအတွက် သီးသန့်ဖန်တီးထားတဲ့<br>
-      အမှတ်တရလေးတစ်ခုပါ… 💙
-    </p>
+  <button onclick="openGift()">
+    ဖွင့်ကြည့်မယ် 💌
+  </button>
 
-    <button class="open-btn" onclick="openGift()">
-      ဖွင့်ကြည့်မယ် 💌
-    </button>
+  <div id="memory">
 
+    <div class="top-text">
+      တစ်နေ့ပြီးတစ်နေ့ ဖြတ်သန်းလာရင်း
+      မင်းနဲ့အတူ ရခဲ့တဲ့ အမှတ်တရလေးတွေက
+      ကိုယ့်အတွက် ပိုပိုပြီး တန်ဖိုးရှိလာတယ်။ ✨
+    </div>
 
-    <div id="message">
+    <div class="photo-box">
 
-      <p class="top-text">
-        တစ်နေ့ပြီးတစ်နေ့ ဖြတ်သန်းလာရင်း<br>
-        မင်းနဲ့အတူ ရခဲ့တဲ့ အမှတ်တရလေးတွေက<br>
-        ကိုယ့်အတွက် ပိုပိုပြီး တန်ဖိုးရှိလာတယ်။ ✨
-      </p>
+      <img class="photo" src="4411ae4c94328a8e2b5d71850451d447_1.jpeg">
+      <img class="photo" src="IMG-7e38fef495ba69863e4c0f23ef9d7117-V.jpg">
+      <img class="photo" src="IMG-7f75efebc813f42d5ee0e3bb6825e6e-V.jpg">
+      <img class="photo" src="IMG_20260111_182413.jpg">
+      <img class="photo" src="IMG_20260111_183028.jpg">
+      <img class="photo" src="IMG_20260111_183218_1769867691329edit.jpg">
+      <img class="photo" src="IMG_20260111_183333.jpg">
+      <img class="photo" src="IMG_20260322_191749.jpg">
+      <img class="photo" src="IMG_20260322_192159.jpg">
+      <img class="photo" src="IMG_20260322_192213.jpg">
+      <img class="photo" src="IMG_20260415_190944_758.jpg">
+      <img class="photo" src="IMG_20260417_110022.jpg">
+      <img class="photo" src="IMG_20260417_110113.jpg">
+      <img class="photo" src="IMG_20260417_110437.jpg">
+      <img class="photo" src="IMG_20260417_111110.jpg">
+      <img class="photo" src="IMG_20260518_161728.jpg">
+      <img class="photo" src="IMG_20260518_162859.jpg">
+      <img class="photo" src="IMG_20260518_163715.jpg">
+      <img class="photo" src="MVIMG_20260131_205129_111654.jpg">
+      <img class="photo" src="MVIMG_20260131_205242_105944.jpg">
+      <img class="photo" src="MVIMG_20260131_210917_095240.jpg">
+      <img class="photo" src="MVIMG_20260131_211017_094919.jpg">
+      <img class="photo" src="a5a6012c6e6bb5d5f65ab0abd40fbf9f_5.jpeg">
+      <img class="photo" src="c6f2ef5c38219afa5d0fbc54affe59a1_0.jpeg">
+      <img class="photo" src="f432cb8eb1ce64dc0175822af5be1b62_6.jpeg">
+      <img class="photo" src="myphoto.jpg">
 
+      <div id="caption" class="caption"></div>
 
-      <!-- ပုံနဲ့စာသား -->
-      <div class="photo-box">
+    </div>
 
-        <img
-          class="photo active"
-          src="4411ae4c94328a8e2b5d71850451d447_1.jpeg">
+    <div id="endText" class="end-text">
 
-        <img
-          class="photo"
-          src="IMG-7e38fef495ba69863e4c0f23ef9d7117-V.jpg">
+      ဒီပုံလေးတွေထဲမှာ ငါတို့အတူတူဖြတ်သန်းခဲ့တဲ့
+      အချိန်လေးတွေရှိတယ်… ❤️<br><br>
 
-        <img
-          class="photo"
-          src="IMG-7f75efebec813f42d5ee0e3bb6825e6e-V.jpg">
+      တစ်ပုံချင်းစီမှာလည်း မမေ့ချင်တဲ့
+      အမှတ်တရလေးတွေရှိတယ်။ 🌷<br><br>
 
-        <img
-          class="photo"
-          src="IMG_20260111_182413.jpg">
+      မင်းပြုံးတဲ့အချိန်တိုင်း
+      ဒီကမ္ဘာကြီးက နည်းနည်းပိုလှသွားသလိုပဲ။ 💙<br><br>
 
-        <img
-          class="photo"
-          src="IMG_20260111_183028.jpg">
+      အထူးသဖြင့် ဘာနေ့ဖြစ်လို့မှ မဟုတ်ဘူး…
+      မင်းက ကိုယ့်အတွက် အထူးလူတစ်ယောက်ဖြစ်နေလို့
+      ဒီအမှတ်တရလေးကို ဖန်တီးထားတာပါ။ ✨<br><br>
 
-        <img
-          class="photo"
-          src="IMG_20260111_183218_1769867691329edit.jpg">
+      <b>Thae Thae… ❤️</b><br>
+      မင်းနဲ့အတူ ရယ်ခဲ့တဲ့အချိန်တွေ၊
+      စကားပြောခဲ့တဲ့အချိန်တွေ၊
+      အတူတူရှိခဲ့တဲ့ အချိန်တိုင်းကို
+      ကိုယ်တန်ဖိုးထားတယ်။ 🫶🏻<br><br>
 
-        <img
-          class="photo"
-          src="IMG_20260111_183333.jpg">
-
-        <img
-          class="photo"
-          src="IMG_20260322_191749.jpg">
-
-        <img
-          class="photo"
-          src="IMG_20260322_192159.jpg">
-
-        <img
-          class="photo"
-          src="IMG_20260322_192213.jpg">
-
-        <img
-          class="photo"
-          src="IMG_20260415_190944_758.jpg">
-
-        <img
-          class="photo"
-          src="IMG_20260417_110022.jpg">
-
-        <img
-          class="photo"
-          src="IMG_20260417_110113.jpg">
-
-        <img
-          class="photo"
-          src="IMG_20260417_110437.jpg">
-
-        <img
-          class="photo"
-          src="IMG_20260417_111110.jpg">
-
-        <img
-          class="photo"
-          src="IMG_20260518_161728.jpg">
-
-        <img
-          class="photo"
-          src="IMG_20260518_162859.jpg">
-
-        <img
-          class="photo"
-          src="IMG_20260518_163715.jpg">
-
-        <img
-          class="photo"
-          src="MVIMG_20260131_205129_111654.jpg">
-
-        <img
-          class="photo"
-          src="MVIMG_20260131_205242_105944.jpg">
-
-        <img
-          class="photo"
-          src="MVIMG_20260131_210917_095240.jpg">
-
-        <img
-          class="photo"
-          src="MVIMG_20260131_211017_094919.jpg">
-
-        <img
-          class="photo"
-          src="a5a6012c6e6bb5d5f65ab0abd40fbf9f_5.jpeg">
-
-        <img
-          class="photo"
-          src="c6f2ef5c38219afa5d0fbc54affe59a1_0.jpeg">
-
-        <img
-          class="photo"
-          src="f432cb8eb1ce64dc0175822af5be1b62_6.jpeg">
-
-        <img
-          class="photo"
-          src="myphoto.jpg">
-
-
-        <!-- ပုံပေါ်က စာသား -->
-        <div class="caption" id="caption">
-          ဒီအမှတ်တရလေးက မမေ့ချင်တဲ့အချိန်လေးတစ်ခုပါ ❤️
-        </div>
-
-
-        <!-- သီချင်း button -->
-        <button
-          class="music-btn"
-          onclick="startMusic()">
-          🎵
-        </button>
-
-
-        <!-- YouTube Player -->
-        <div id="player"></div>
-
-      </div>
-
-
-      <p class="ending">
-        ဒီပုံလေးတွေထဲမှာ<br>
-        ငါတို့အတူတူဖြတ်သန်းခဲ့တဲ့ အချိန်လေးတွေရှိတယ်… ❤️
-      </p>
-
-      <p class="ending">
-        တစ်ပုံချင်းစီမှာလည်း<br>
-        မမေ့ချင်တဲ့ အမှတ်တရလေးတွေရှိတယ်။ 🌷
-      </p>
-
-      <p class="ending">
-        မင်းပြုံးတဲ့အချိန်တိုင်း<br>
-        ဒီကမ္ဘာကြီးက နည်းနည်းပိုလှသွားသလိုပဲ။ 💙
-      </p>
-
-      <p class="ending">
-        အထူးသဖြင့် ဘာနေ့ဖြစ်လို့မှ မဟုတ်ဘူး…<br>
-        မင်းက ကိုယ့်အတွက် အထူးလူတစ်ယောက်ဖြစ်နေလို့<br>
-        ဒီအမှတ်တရလေးကို ဖန်တီးထားတာပါ။ ✨
-      </p>
-
-      <p class="ending">
-        Thae Thae… ❤️<br><br>
-
-        မင်းနဲ့အတူ ရယ်ခဲ့တဲ့အချိန်တွေ၊<br>
-        စကားပြောခဲ့တဲ့အချိန်တွေ၊<br>
-        အတူတူရှိခဲ့တဲ့ အချိန်တိုင်းကို<br>
-        ကိုယ်တန်ဖိုးထားတယ်။ 🫶🏻
-      </p>
-
-      <p class="ending">
-        ဒီပုံလေးတွေကို ကြည့်တဲ့အခါ<br>
-        “အဲ့ဒီအချိန်တွေက တကယ်လှခဲ့တာပဲ”<br>
-        လို့ ပြန်တွေးမိစေချင်တယ်။ ❤️
-      </p>
-
-      <p class="ending">
-        အမြဲတမ်း ပျော်ရွှင်နေပါစေ Thae Thae… 💙<br><br>
-        ဒီအမှတ်တရလေးကိုလည်း<br>
-        အမြဲသိမ်းထားပေးနော်။ ✨
-      </p>
+      အမြဲတမ်း ပျော်ရွှင်နေပါစေ Thae Thae… 💙<br>
+      ဒီအမှတ်တရလေးကိုလည်း အမြဲသိမ်းထားပေးနော်။ ✨
 
     </div>
 
   </div>
 
+</div>
 
-  <!-- YouTube API -->
-  <script src="https://www.youtube.com/iframe_api"></script>
+<button class="music-btn" onclick="toggleMusic()">🎵</button>
 
+<div id="player"></div>
 
-  <script>
+<script src="https://www.youtube.com/iframe_api"></script>
 
-    /* =========================
-       ပုံ + စာသား
-    ========================= */
+<script>
 
-    const photos =
-      document.querySelectorAll(".photo");
+const photos = document.querySelectorAll(".photo");
 
-    const captions = [
+const captions = [
 
-      "ဒီအမှတ်တရလေးက မမေ့ချင်တဲ့အချိန်လေးတစ်ခုပါ ❤️",
+"ဒီအမှတ်တရလေးက မမေ့ချင်တဲ့အချိန်လေးတစ်ခုပါ ❤️",
 
-      "မင်းနဲ့အတူရှိတဲ့အချိန်တိုင်းက တန်ဖိုးရှိတယ် 💙",
+"မင်းနဲ့အတူရှိတဲ့အချိန်တိုင်းက တန်ဖိုးရှိတယ် 💙",
 
-      "အမှတ်တရတွေက အချိန်ကြာလေလေ ပိုလှလာလေလေပဲ ✨",
+"အမှတ်တရတွေက အချိန်ကြာလေလေ ပိုလှလာလေလေပဲ ✨",
 
-      "မင်းရဲ့အပြုံးလေးကို အမြဲမှတ်မိနေမယ် 🌷",
+"မင်းရဲ့အပြုံးလေးကို အမြဲမှတ်မိနေမယ် 🌷",
 
-      "ဒီအချိန်လေးတွေကို ပြန်တွေးတိုင်း ပြုံးမိတယ် ❤️",
+"ဒီအချိန်လေးတွေကို ပြန်တွေးတိုင်း ပြုံးမိတယ် ❤️",
 
-      "ငါတို့ရဲ့အမှတ်တရလေးတွေ… 🫶🏻",
+"ငါတို့ရဲ့အမှတ်တရလေးတွေ… 🫶🏻",
 
-      "မင်းနဲ့အတူရှိတဲ့နေ့တွေကို တန်ဖိုးထားတယ် 💙",
+"မင်းနဲ့အတူရှိတဲ့နေ့တွေကို တန်ဖိုးထားတယ် 💙",
 
-      "အတူတူဖြတ်သန်းခဲ့တဲ့အချိန်တိုင်းက အမှတ်တရပါ ✨",
+"အတူတူဖြတ်သန်းခဲ့တဲ့အချိန်တိုင်းက အမှတ်တရပါ ✨",
 
-      "မင်းရှိနေတာကပဲ အရာရာကို ပိုလှစေတယ် ❤️",
+"မင်းရှိနေတာကပဲ အရာရာကို ပိုလှစေတယ် ❤️",
 
-      "ဒီပုံလေးတွေက ငါတို့အကြောင်း ပြောပြနေတယ် 💙",
+"ဒီပုံလေးတွေက ငါတို့အကြောင်း ပြောပြနေတယ် 💙",
 
-      "အချိန်တွေကုန်သွားပေမယ့် အမှတ်တရတွေက မကုန်ဘူး 🌷",
+"အချိန်တွေကုန်သွားပေမယ့် အမှတ်တရတွေက မကုန်ဘူး 🌷",
 
-      "မင်းနဲ့အတူ ရယ်ခဲ့တာတွေကို မမေ့ချင်ဘူး ❤️",
+"မင်းနဲ့အတူ ရယ်ခဲ့တာတွေကို မမေ့ချင်ဘူး ❤️",
 
-      "ဒီလိုအချိန်လေးတွေ အမြဲရှိနေပါစေ 💙",
+"ဒီလိုအချိန်လေးတွေ အမြဲရှိနေပါစေ 💙",
 
-      "အမှတ်တရကောင်းလေးတွေ အများကြီးဖန်တီးကြမယ် ✨",
+"အမှတ်တရကောင်းလေးတွေ အများကြီးဖန်တီးကြမယ် ✨",
 
-      "မင်းက ကိုယ့်အတွက် အထူးလူတစ်ယောက်ပါ ❤️",
+"မင်းက ကိုယ့်အတွက် အထူးလူတစ်ယောက်ပါ ❤️",
 
-      "မင်းနဲ့တွေ့ခဲ့ရတာကို တန်ဖိုးထားတယ် 🫶🏻",
+"မင်းနဲ့တွေ့ခဲ့ရတာကို တန်ဖိုးထားတယ် 🫶🏻",
 
-      "ဒီနေ့ထက် မနက်ဖြန်တွေ ပိုလှပါစေ 💙",
+"ဒီနေ့ထက် မနက်ဖြန်တွေ ပိုလှပါစေ 💙",
 
-      "မင်းရဲ့အပြုံးလေး အမြဲလှနေပါစေ 🌷",
+"မင်းရဲ့အပြုံးလေး အမြဲလှနေပါစေ 🌷",
 
-      "အတူတူဖြတ်သန်းခဲ့တဲ့အချိန်တွေကို သိမ်းထားမယ် ❤️",
+"အတူတူဖြတ်သန်းခဲ့တဲ့အချိန်တွေကို သိမ်းထားမယ် ❤️",
 
-      "ဒီအမှတ်တရလေးတွေက အမြဲတမ်းရှိနေမယ် 💙",
+"ဒီအမှတ်တရလေးတွေက အမြဲတမ်းရှိနေမယ် 💙",
 
-      "မင်းနဲ့အတူရှိရတဲ့အချိန်က အကောင်းဆုံးအချိန်လေးတွေပါ ✨",
+"မင်းနဲ့အတူရှိရတဲ့အချိန်က အကောင်းဆုံးအချိန်လေးတွေပါ ✨",
 
-      "အမှတ်တရလေးတွေကို အမြဲတန်ဖိုးထားမယ် ❤️",
+"အမှတ်တရလေးတွေကို အမြဲတန်ဖိုးထားမယ် ❤️",
 
-      "မင်းအတွက် ဒီလက်ဆောင်လေးကို ဖန်တီးထားတာပါ 💙",
+"မင်းအတွက် ဒီလက်ဆောင်လေးကို ဖန်တီးထားတာပါ 💙",
 
-      "အမြဲတမ်း ပျော်ရွှင်နေပါစေ Thae Thae ❤️"
+"အမြဲတမ်း ပျော်ရွှင်နေပါစေ Thae Thae ❤️",
 
-    ];
+"ဒီပုံလေးကလည်း ငါတို့ရဲ့အမှတ်တရလေးတစ်ခုပါ 🌷",
 
+"နောက်ထပ်လည်း ဒီလိုအမှတ်တရလေးတွေ ဖန်တီးကြမယ် 💙"
 
-    let currentPhoto = 0;
+];
 
+let current = 0;
+let timer = null;
+let player = null;
+let musicStarted = false;
+let musicPaused = false;
 
-    function changePhoto() {
+function showPhoto(index) {
 
-      photos[currentPhoto].classList.remove("active");
+  photos.forEach(function(photo) {
+    photo.classList.remove("active");
+  });
 
-      currentPhoto++;
+  if (photos[index]) {
+    photos[index].classList.add("active");
+  }
 
-      if (currentPhoto >= photos.length) {
-        currentPhoto = 0;
-      }
+  const caption = document.getElementById("caption");
 
-      photos[currentPhoto].classList.add("active");
+  caption.textContent = captions[index] || "";
 
-      document.getElementById("caption").innerText =
-        captions[currentPhoto];
-    }
+}
 
+function changePhoto() {
 
-    /* 2.5 စက္ကန့်တိုင်း ပုံပြောင်း */
+  current++;
 
-    setInterval(changePhoto, 6000);
+  if (current >= photos.length) {
+    current = 0;
+  }
 
+  showPhoto(current);
 
-    /* =========================
-       YouTube Music
-    ========================= */
+}
 
-    let player;
+function openGift() {
 
-    let musicReady = false;
+  document.getElementById("memory").style.display = "block";
 
+  document.querySelector(".container > button").style.display = "none";
 
-    function onYouTubeIframeAPIReady() {
+  showPhoto(0);
 
-      player = new YT.Player("player", {
+  if (!timer) {
+    timer = setInterval(changePhoto, 4000);
+  }
 
-        height: "1",
+  startMusic();
 
-        width: "1",
+}
 
-        videoId: "GRC_iiZtAkA",
+function onYouTubeIframeAPIReady() {
 
-        playerVars: {
+  player = new YT.Player("player", {
 
-          autoplay: 0,
+    videoId: "GRC_iiZtAkA",
 
-          controls: 0,
+    playerVars: {
+      autoplay: 0,
+      controls: 0,
+      playsinline: 1,
+      rel: 0
+    },
 
-          playsinline: 1,
+    events: {
 
-          loop: 1,
+      onReady: function() {
+        musicStarted = true;
+      },
 
-          playlist: "GRC_iiZtAkA",
+      onStateChange: function(event) {
 
-          rel: 0
+        if (event.data === YT.PlayerState.ENDED) {
 
-        },
+          player.seekTo(0);
 
-        events: {
-
-          onReady: function() {
-
-            musicReady = true;
-
-          },
-
-          onStateChange: function(event) {
-
-            /*
-              သီချင်းပြီးသွားရင်
-              ပြန်စမယ်
-            */
-
-            if (
-              event.data === YT.PlayerState.ENDED
-            ) {
-
-              player.playVideo();
-
-            }
-
-          }
+          player.playVideo();
 
         }
 
-      });
-
-    }
-
-
-    function startMusic() {
-
-      if (musicReady && player) {
-
-        player.playVideo();
-
       }
 
     }
 
+  });
 
-    /* =========================
-       ဖွင့်မယ် button
-    ========================= */
+}
 
-    function openGift() {
+function startMusic() {
 
-      document.getElementById("message").style.display =
-        "block";
+  if (player) {
+    player.playVideo();
+  }
 
-      startMusic();
+}
 
-      window.scrollTo({
+function toggleMusic() {
 
-        top: document.getElementById("message").offsetTop,
+  if (!player) return;
 
-        behavior: "smooth"
+  if (musicPaused) {
 
-      });
+    player.playVideo();
+    musicPaused = false;
 
-    }
+  } else {
 
-  </script>
+    player.pauseVideo();
+    musicPaused = true;
+
+  }
+
+}
+
+</script>
 
 </body>
 </html>
-        
